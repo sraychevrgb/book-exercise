@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
+            {{-- <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 
                 <div class="card-body">
@@ -15,8 +15,11 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                   
                 </div>
-            </div>
+            </div> --}}
+
+            <book-list books_url="{{ url('books') }}" :passed_books="{{ json_encode($user->books) }}"></book-list>
         </div>
     </div>
 </div>
