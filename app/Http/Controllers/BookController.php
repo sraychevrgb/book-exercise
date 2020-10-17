@@ -43,6 +43,18 @@ class BookController extends Controller
 
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Book  $book
+     * @return \Illuminate\Http\Response
+     */
+    // public function show(Book $book)
+    // {
+    //     //
+    // }
+
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Book  $book
@@ -59,6 +71,31 @@ class BookController extends Controller
         }
         else{
             return response()->json(['failure'=> "This book does not belong to you!"], 200);
+        }
+
+    }
+
+
+    public function updateBooksSortOrderInBulk(Request $request){
+        $loggedInUser = auth()->user();
+
+        if( isset($request->sorted_books) ){
+            foreach ($request->sorted_books as $sorted_book) {
+                $book = Book::where('id', $sorted_book['id'])
+                            ->where('user_id', $loggedInUser->id)
+                            ->first();
+                
+                //if we have a match then there is such a book that belongs to the logged in user
+                if( $book ){
+                    $book->sort_order = $sorted_book['sort_order'];
+                    $book->save();
+                }
+                //else we do nothing we keep looping
+            }
+            return response()->json(['success'=> "Books sorted."], 200);
+        }
+        else{
+            return response()->json(['failure'=> "No books to sort."], 200);
         }
 
     }
