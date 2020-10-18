@@ -21,5 +21,5 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::resource('/books', 'BookController')->only(['store', 'destroy'])->middleware('auth');
+Route::resource('/books', 'BookController')->only(['store', 'show', 'destroy'])->middleware('auth');
 Route::post('/books/update-books-order', 'BookController@updateBooksSortOrderInBulk')->middleware(['auth']);

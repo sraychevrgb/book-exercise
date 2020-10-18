@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Book;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class BookController extends Controller
 {
@@ -48,10 +49,18 @@ class BookController extends Controller
      * @param  \App\Book  $book
      * @return \Illuminate\Http\Response
      */
-    // public function show(Book $book)
-    // {
-    //     //
-    // }
+    public function show(Book $book)
+    {
+        $bookInfo = null;
+        $response = Http::get('https://www.googleapis.com/books/v1/volumes/'.$book->google_api_id);
+        if( $response->successful() ){
+            $bookInfo = $response->json();
+            return view('bookDetails', compact('bookInfo'));
+        }
+        else{
+            abort(404);
+        }
+    }
 
 
     /**

@@ -30,7 +30,7 @@
                             <ul class="list-group">
                                 <draggable v-model="books" group="people" @end="onDraggableEnded">
                                     <li v-for="book in books" :key="book.title" class="list-group-item">
-                                        {{book.title}}, {{ book.publish_date }}
+                                        <a :href=" 'books/'+book.id" >{{book.title}}, {{ book.publish_date }}</a>
                                         <button type="button" class="btn btn-danger float-right" @click="deleteBook(book.id)">Delete</button>
                                     </li>
                                 </draggable>
