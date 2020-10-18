@@ -111,7 +111,21 @@ class BookTest extends TestCase
 
     /** @test */
     public function book_details_endpoint_can_retrieve_api_data(){
-        //TODO
+
+        $this->actingAs( factory(User::class)->create() );
+
+        $response = $this->post( '/books', [
+            'book' => [
+                'title' => "Maugli",
+                'publish_date' => "2013-01",
+                'google_api_id' => "QfhKcNWyUccC"
+            ]
+        ] );
+        $this->assertCount( 1, Book::all() );
+
+        //so far we have a book added, see if we can load the book details
+        $response = $this->get('/books/1')->assertStatus(200); 
+        $response = $this->get('/books/1')->assertSeeText("Maugli");
     }
 
 }
