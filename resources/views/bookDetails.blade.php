@@ -25,9 +25,9 @@
         @isset($bookInfo['volumeInfo']['dimensions'])
         <h3 class="my-3">Book Dimensions</h3>
         <ul>
-          <li>height {{ $bookInfo['volumeInfo']['dimensions']['height'] }}</li>
-          <li>width {{ $bookInfo['volumeInfo']['dimensions']['width'] }}</li>
-          <li>thickness {{ $bookInfo['volumeInfo']['dimensions']['thickness'] }}</li>
+          <li>height {{ $bookInfo['volumeInfo']['dimensions']['height'] ?? 'unknown' }}</li>
+          <li>width {{ $bookInfo['volumeInfo']['dimensions']['width'] ?? 'unknown' }}</li>
+          <li>thickness {{ $bookInfo['volumeInfo']['dimensions']['thickness'] ?? 'unknown' }}</li>
         </ul>
         @endisset
 
